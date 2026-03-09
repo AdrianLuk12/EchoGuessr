@@ -60,10 +60,9 @@ export async function POST() {
 
       deleteVoice(speechResult.voiceId).catch(() => {});
 
-      if (useCache) {
-        const cacheKey = generateCacheKey(location.ambientPrompt, location.musicPrompt, location.languagePhrase);
-        await writeToCache(cacheKey, ambientBuf, musicBuf, languageBuf, location);
-      }
+      // Always save to cache after generating from live API
+      const cacheKey = generateCacheKey(location.ambientPrompt, location.musicPrompt, location.languagePhrase);
+      await writeToCache(cacheKey, ambientBuf, musicBuf, languageBuf, location);
     }
 
     const sessionId = randomUUID();
