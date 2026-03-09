@@ -9,9 +9,16 @@ import {
 } from "@/lib/elevenlabs";
 import { setSession } from "@/lib/sessions";
 import { generateCacheKey, readFromCache, writeToCache, getRandomFromCache } from "@/lib/cache";
+import { verifyAuth } from "@/lib/auth";
 
 export async function POST() {
   try {
+    // Authenticate user
+    const { user, error: authError } = await verifyAuth();
+    if (authError || !user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const useCache = process.env.USE_LOCAL_CACHE === "true";
     let cacheHit = false;
 
