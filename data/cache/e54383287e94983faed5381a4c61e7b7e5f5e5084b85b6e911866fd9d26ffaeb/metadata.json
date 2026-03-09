@@ -1,0 +1,11 @@
+{
+  "city": "Thimphu",
+  "country": "Bhutan",
+  "lat": 27.4712,
+  "lng": 89.632,
+  "ambientPrompt": "The sound of prayer flags flapping in the wind, the gentle ringing of bells from distant temples, and the gushing of nearby streams.",
+  "musicPrompt": "Traditional Bhutanese music featuring the drangyen, flutes, and cymbals in a ceremonial, meditative style with a tranquil mood.",
+  "languagePhrase": "ད་བར་མི་ཕྱིན་གཏོང་རྒྱུ་དང་སྔོན་མོ་གཞན་ཚོད་ལྟ་བརྒྱབ་རོགས་ཞུ་ཡོད་རེད།",
+  "languageTranslation": "Please try to send someone else ahead before making a decision on the matter.",
+  "voiceDescription": "Middle-aged Bhutanese man with a gentle, melodic tone."
+}

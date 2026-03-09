@@ -1,0 +1,11 @@
+{
+  "city": "San Luis Potosí",
+  "country": "Mexico",
+  "lat": 22.1566,
+  "lng": -100.9855,
+  "ambientPrompt": "Hear the lively stream of a bustling street market, with vendors clattering metal objects and a distant mariachi band practicing.",
+  "musicPrompt": "Experience the harmonious sounds of Mexican folk music featuring acoustic guitar and vihuela, creating a festive and energetic mood.",
+  "languagePhrase": "¿Podría decirme dónde puedo encontrar una buena taquería para probar algunos tacos auténticos de carne asada?",
+  "languageTranslation": "Could you tell me where I can find a good taco stand to try some authentic carne asada tacos?",
+  "voiceDescription": "Middle-aged Mexican man with a warm, inviting Central Mexican accent."
+}

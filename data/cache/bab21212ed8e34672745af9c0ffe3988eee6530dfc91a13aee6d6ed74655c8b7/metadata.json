@@ -1,0 +1,11 @@
+{
+  "city": "Novi Sad",
+  "country": "Serbia",
+  "lat": 45.2671,
+  "lng": 19.8335,
+  "ambientPrompt": "Hear the rhythmic clatter of a bustling outdoor café, the toll of a church bell, and the hum of a busy marketplace.",
+  "musicPrompt": "The sounds of a lively kolo dance with traditional string instruments like tamburica, combined with the accordion for a cheerful mood.",
+  "languagePhrase": "Možete li mi reći gdje se nalazi najbliža autobuska stanica i koliko još ima do nje?",
+  "languageTranslation": "Can you tell me where the nearest bus station is and how much farther to it?",
+  "voiceDescription": "Middle-aged Serbian man with a deep, resonant voice and a Vojvodinian accent."
+}

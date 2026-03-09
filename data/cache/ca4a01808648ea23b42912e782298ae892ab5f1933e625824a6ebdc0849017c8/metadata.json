@@ -1,0 +1,11 @@
+{
+  "city": "Punta Cana",
+  "country": "Dominican Republic",
+  "lat": 18.5601,
+  "lng": -68.3725,
+  "ambientPrompt": "Hear the rhythmic crash of waves on palm-lined beaches, the rustling of leaves, and the distinctive call of tropical birds.",
+  "musicPrompt": "Merengue music driven by the accordion, tambora drums, and güira, creating a lively and celebratory atmosphere.",
+  "languagePhrase": "¿Podría recomendarme un buen lugar para comer pescado fresco cerca de la playa, y cómo llegar hasta allí?",
+  "languageTranslation": "Could you recommend a good place to eat fresh fish near the beach, and how to get there?",
+  "voiceDescription": "Middle-aged Dominican man with a warm Caribbean accent."
+}

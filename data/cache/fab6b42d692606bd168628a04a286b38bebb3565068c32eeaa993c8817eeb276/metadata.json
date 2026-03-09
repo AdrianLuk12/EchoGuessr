@@ -1,0 +1,11 @@
+{
+  "city": "Incheon",
+  "country": "South Korea",
+  "lat": 37.4563,
+  "lng": 126.7052,
+  "ambientPrompt": "Hear the rhythmic beat of drums from a distant temple, the chatter of bustling street markets, and the sound of high-speed trains whizzing by.",
+  "musicPrompt": "Traditional Korean string instruments like the gayageum, combined with rhythmic samulnori percussion, creating an energetic and vibrant melody.",
+  "languagePhrase": "이 버스를 타려면 어디서 표를 사야 하는지 알려주실 수 있나요?",
+  "languageTranslation": "Can you tell me where I can buy a ticket to take this bus?",
+  "voiceDescription": "Middle-aged Korean man with a deep, authoritative accent."
+}

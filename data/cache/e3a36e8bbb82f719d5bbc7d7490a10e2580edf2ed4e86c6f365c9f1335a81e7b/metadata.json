@@ -1,0 +1,11 @@
+{
+  "city": "Porto",
+  "country": "Portugal",
+  "lat": 41.1579,
+  "lng": -8.6291,
+  "ambientPrompt": "Hear the squawking of seagulls over the waterfront, the sound of traditional fishing boats clinking against the dock, and the lively buzz of outdoor markets.",
+  "musicPrompt": "Feel the melancholic tunes of fado music with soulful Portuguese guitar and viola, mixing a bittersweet and nostalgic mood.",
+  "languagePhrase": "Por favor, pode me indicar um restaurante onde eu possa experimentar o famoso prato de bacalhau da região?",
+  "languageTranslation": "Please, can you point me to a restaurant where I can try the famous local codfish dish?",
+  "voiceDescription": "Middle-aged Portuguese man with a Northern Portugal accent, warm and engaging voice."
+}
