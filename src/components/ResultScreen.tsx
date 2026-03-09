@@ -77,11 +77,12 @@ export default function ResultScreen() {
   
   const [showNotification, setShowNotification] = useState(true);
 
-  if (!result) return null;
-
-  const { score, distance, actualLocation, guessedLocation, stage, isNewHighScore, isNewUser } = result;
+  const score = result?.score ?? 0;
+  const isNewHighScore = result?.isNewHighScore ?? false;
+  const isNewUser = result?.isNewUser ?? false;
 
   useEffect(() => {
+    if (!result) return;
     if (score >= 3000 || isNewHighScore) {
       const duration = score >= 8000 ? 3000 : 1500;
       const end = Date.now() + duration;
@@ -92,16 +93,21 @@ export default function ResultScreen() {
       };
       frame();
     }
-  }, [score, isNewHighScore]);
+  }, [result, score, isNewHighScore]);
 
   useEffect(() => {
+    if (!result) return;
     if (isNewHighScore || isNewUser) {
       const timer = setTimeout(() => setShowNotification(false), 5000);
       return () => clearTimeout(timer);
     } else {
       setShowNotification(false);
     }
-  }, [isNewHighScore, isNewUser]);
+  }, [result, isNewHighScore, isNewUser]);
+
+  if (!result) return null;
+
+  const { distance, actualLocation, guessedLocation, stage } = result;
 
   return (
     <div className="flex flex-col lg:flex-row h-screen">
