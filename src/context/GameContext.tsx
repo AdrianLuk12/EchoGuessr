@@ -26,6 +26,7 @@ interface ResultData {
   languageTranslation?: string;
   isNewHighScore?: boolean;
   isNewUser?: boolean;
+  audio?: AudioUrls;
 }
 
 interface GameState {
@@ -130,7 +131,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
 
       setState((s) => ({
         ...s,
-        result,
+        result: { ...result, audio: s.audio ?? undefined },
         phase: "result",
         isLoading: false,
       }));
@@ -141,7 +142,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
         isLoading: false,
       }));
     }
-  }, [state.sessionId, state.guessCoords, state.stage]);
+  }, [state.sessionId, state.guessCoords, state.stage, state.audio]);
 
   const nextStage = useCallback(() => {
     setState((s) => ({

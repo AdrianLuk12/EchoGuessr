@@ -2,11 +2,12 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useGame } from "@/context/GameContext";
-import { MapPin, Trophy, RotateCcw, PartyPopper } from "lucide-react";
+import { MapPin, Trophy, RotateCcw, PartyPopper, Volume2, Music, MessageCircle } from "lucide-react";
 import dynamic from "next/dynamic";
 import { motion, AnimatePresence } from "framer-motion";
 import confetti from "canvas-confetti";
 import Link from "next/link";
+import AudioPlayer from "@/components/AudioPlayer";
 
 const MotionLink = motion.create(Link);
 
@@ -200,6 +201,37 @@ export default function ResultScreen() {
             )}
           </motion.div>
         </div>
+
+        {/* Audio Clues Section */}
+        {result.audio && (
+          <motion.div
+            className="bg-white/5 rounded-xl p-5 space-y-3"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5, duration: 0.4 }}
+          >
+            <h3 className="text-lg font-semibold flex items-center gap-2">
+              <Volume2 className="text-amber-500" size={18} /> Audio Clues
+            </h3>
+            <div className="flex flex-col gap-3">
+              <AudioPlayer
+                src={result.audio.ambient}
+                label="Ambient Sounds"
+                icon={Volume2}
+              />
+              <AudioPlayer
+                src={result.audio.music}
+                label="Regional Music"
+                icon={Music}
+              />
+              <AudioPlayer
+                src={result.audio.language}
+                label="Spoken Language"
+                icon={MessageCircle}
+              />
+            </div>
+          </motion.div>
+        )}
 
         <div className="flex flex-col gap-2 mt-auto">
           <MotionLink
