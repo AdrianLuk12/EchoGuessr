@@ -1,0 +1,11 @@
+{
+  "city": "Cusco",
+  "country": "Peru",
+  "lat": -13.5319,
+  "lng": -71.9675,
+  "ambientPrompt": "The echoing calls of distant Andean condors, the rhythmic clinking of weaving looms, and the roar of mountain streams cascading down rocky paths.",
+  "musicPrompt": "Wooden pan flutes and charangos create vibrant melodies in a joyful Andean folk style, embracing nature and cultural heritage.",
+  "languagePhrase": "Podrías decirme cómo llegar al mercado? Quiero comprar algunas frutas frescas y hierbas locales para el almuerzo.",
+  "languageTranslation": "Could you tell me how to get to the market? I want to buy some fresh fruits and local herbs for lunch.",
+  "voiceDescription": "Middle-aged Peruvian man with a warm, slightly raspy Andean accent."
+}

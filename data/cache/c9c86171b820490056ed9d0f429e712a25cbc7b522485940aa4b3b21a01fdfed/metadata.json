@@ -1,0 +1,11 @@
+{
+  "city": "Kraków",
+  "country": "Poland",
+  "lat": 50.0647,
+  "lng": 19.945,
+  "ambientPrompt": "The loud clatter of horse-drawn carriages, the sound of accordion street performances, and the bustling noise of outdoor markets.",
+  "musicPrompt": "Traditional Polish folk music featuring the fiddle and accordion, with a lively and rhythmic dance tempo.",
+  "languagePhrase": "Przepraszam, jak mogę dostać się na najbliższą stację kolejową z tego przystanku autobusowego?",
+  "languageTranslation": "Excuse me, how can I get to the nearest train station from this bus stop?",
+  "voiceDescription": "Middle-aged Polish man with a slight regional accent."
+}
