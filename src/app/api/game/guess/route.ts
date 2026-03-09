@@ -1,12 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSession } from "@/lib/sessions";
 import { haversineDistance, calculateScore } from "@/lib/scoring";
+import { addScore } from "@/lib/leaderboard";
 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { sessionId, guessedCoordinates, stage } = body as {
+    const { sessionId, username, guessedCoordinates, stage } = body as {
       sessionId: string;
+      username?: string;
       guessedCoordinates: [number, number];
       stage: number;
     };
@@ -32,6 +34,17 @@ export async function POST(req: NextRequest) {
     const distance = haversineDistance(guessLat, guessLng, lat, lng);
     const score = calculateScore(distance, stage);
 
+    // Auto-submit score to leaderboard
+    let isNewHighScore = false;
+    let isNewUser = false;
+    if (username) {
+      const result = await addScore(username, score, sessionId);
+      if (result) {
+        isNewHighScore = result.isNewHighScore;
+        isNewUser = result.isNewUser;
+      }
+    }
+
     return NextResponse.json({
       score,
       distance: Math.round(distance),
@@ -40,6 +53,8 @@ export async function POST(req: NextRequest) {
       stage,
       languagePhrase: session.languagePhrase,
       languageTranslation: session.languageTranslation,
+      isNewHighScore,
+      isNewUser,
     });
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : "Unknown error";

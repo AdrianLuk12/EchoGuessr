@@ -2,9 +2,9 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useGame } from "@/context/GameContext";
-import { MapPin, Trophy, RotateCcw } from "lucide-react";
+import { MapPin, Trophy, RotateCcw, PartyPopper } from "lucide-react";
 import dynamic from "next/dynamic";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import confetti from "canvas-confetti";
 
 const GuessMap = dynamic(() => import("@/components/GuessMap"), { ssr: false });
@@ -73,13 +73,16 @@ function AnimatedScore({ value }: { value: number }) {
 }
 
 export default function ResultScreen() {
-  const { result, goToLeaderboard, playAgain, username, sessionId } = useGame();
+  const { result, goToLeaderboard, playAgain } = useGame();
+  
+  const [showNotification, setShowNotification] = useState(true);
+
   if (!result) return null;
 
-  const { score, distance, actualLocation, guessedLocation, stage } = result;
+  const { score, distance, actualLocation, guessedLocation, stage, isNewHighScore, isNewUser } = result;
 
   useEffect(() => {
-    if (score >= 3000) {
+    if (score >= 3000 || isNewHighScore) {
       const duration = score >= 8000 ? 3000 : 1500;
       const end = Date.now() + duration;
       const frame = () => {
@@ -89,7 +92,16 @@ export default function ResultScreen() {
       };
       frame();
     }
-  }, [score]);
+  }, [score, isNewHighScore]);
+
+  useEffect(() => {
+    if (isNewHighScore || isNewUser) {
+      const timer = setTimeout(() => setShowNotification(false), 5000);
+      return () => clearTimeout(timer);
+    } else {
+      setShowNotification(false);
+    }
+  }, [isNewHighScore, isNewUser]);
 
   return (
     <div className="flex flex-col lg:flex-row h-screen">
@@ -104,8 +116,22 @@ export default function ResultScreen() {
           <MapPin className="text-amber-500" size={24} /> Results
         </h2>
 
-        <div className="bg-white/5 rounded-xl p-5 space-y-3">
-          <div className="text-center">
+        <div className="bg-white/5 rounded-xl p-5 space-y-3 relative">
+          <AnimatePresence>
+            {showNotification && (isNewHighScore || isNewUser) && (
+              <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                className="absolute -top-3 left-1/2 -translate-x-1/2 bg-emerald-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg flex items-center gap-1 whitespace-nowrap"
+              >
+                <PartyPopper size={14} />
+                {isNewUser ? "Score Submitted!" : "New High Score!"}
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          <div className="text-center mt-2">
             <motion.p
               className="text-5xl font-extrabold text-amber-500"
               initial={{ scale: 0.6, opacity: 0 }}
@@ -167,7 +193,6 @@ export default function ResultScreen() {
         </div>
 
         <div className="flex flex-col gap-2 mt-auto">
-          <SaveScoreButton username={username} score={score} sessionId={sessionId} />
           <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.97 }}
@@ -202,42 +227,5 @@ export default function ResultScreen() {
         />
       </motion.div>
     </div>
-  );
-}
-
-function SaveScoreButton({
-  username,
-  score,
-  sessionId,
-}: {
-  username: string;
-  score: number;
-  sessionId: string | null;
-}) {
-  const [saved, setSaved] = useState(false);
-  const [saving, setSaving] = useState(false);
-
-  const handleSave = async () => {
-    if (saved || saving) return;
-    setSaving(true);
-    await fetch("/api/leaderboard", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, score, sessionId }),
-    });
-    setSaving(false);
-    setSaved(true);
-  };
-
-  return (
-    <motion.button
-      whileHover={{ scale: 1.02 }}
-      whileTap={{ scale: 0.97 }}
-      onClick={handleSave}
-      disabled={saved || saving}
-      className="px-4 py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-medium transition disabled:opacity-50 disabled:cursor-not-allowed"
-    >
-      {saved ? "Score Saved!" : saving ? "Saving…" : "Save Score to Leaderboard"}
-    </motion.button>
   );
 }

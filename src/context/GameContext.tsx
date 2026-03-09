@@ -24,6 +24,8 @@ interface ResultData {
   stage: number;
   languagePhrase?: string;
   languageTranslation?: string;
+  isNewHighScore?: boolean;
+  isNewUser?: boolean;
 }
 
 interface GameState {
@@ -119,6 +121,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           sessionId: state.sessionId,
+          username: state.username,
           guessedCoordinates: [state.guessCoords.lat, state.guessCoords.lng],
           stage: state.stage,
         }),
