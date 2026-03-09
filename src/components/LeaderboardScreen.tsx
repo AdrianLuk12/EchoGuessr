@@ -1,15 +1,17 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useGame } from "@/context/GameContext";
 import { Trophy, RotateCcw } from "lucide-react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 interface Entry {
   username: string;
   score: number;
   date: string;
 }
+
+const MotionLink = motion.create(Link);
 
 const containerVariants = {
   hidden: {},
@@ -22,7 +24,6 @@ const rowVariants = {
 };
 
 export default function LeaderboardScreen() {
-  const { playAgain } = useGame();
   const [entries, setEntries] = useState<Entry[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -103,14 +104,14 @@ export default function LeaderboardScreen() {
           </motion.div>
         )}
 
-        <motion.button
+        <MotionLink
+          href="/"
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.97 }}
-          onClick={playAgain}
           className="mt-8 flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-black font-semibold transition"
         >
           <RotateCcw size={16} /> Play Again
-        </motion.button>
+        </MotionLink>
       </div>
     </motion.div>
   );

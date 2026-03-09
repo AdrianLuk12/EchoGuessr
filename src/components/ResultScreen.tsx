@@ -6,6 +6,9 @@ import { MapPin, Trophy, RotateCcw, PartyPopper } from "lucide-react";
 import dynamic from "next/dynamic";
 import { motion, AnimatePresence } from "framer-motion";
 import confetti from "canvas-confetti";
+import Link from "next/link";
+
+const MotionLink = motion.create(Link);
 
 const GuessMap = dynamic(() => import("@/components/GuessMap"), { ssr: false });
 
@@ -73,7 +76,7 @@ function AnimatedScore({ value }: { value: number }) {
 }
 
 export default function ResultScreen() {
-  const { result, goToLeaderboard, playAgain } = useGame();
+  const { result, playAgain } = useGame();
   
   const [showNotification, setShowNotification] = useState(true);
 
@@ -199,14 +202,14 @@ export default function ResultScreen() {
         </div>
 
         <div className="flex flex-col gap-2 mt-auto">
-          <motion.button
+          <MotionLink
+            href="/leaderboard"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.97 }}
-            onClick={goToLeaderboard}
             className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-white/10 hover:bg-white/20 border border-white/20 text-white font-medium transition"
           >
             <Trophy size={16} /> View Leaderboard
-          </motion.button>
+          </MotionLink>
           <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.97 }}

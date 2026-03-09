@@ -8,7 +8,7 @@ import {
   ReactNode,
 } from "react";
 
-type GamePhase = "welcome" | "loading" | "playing" | "result" | "leaderboard";
+type GamePhase = "welcome" | "loading" | "playing" | "result";
 
 interface AudioUrls {
   ambient: string;
@@ -45,7 +45,6 @@ interface GameContextType extends GameState {
   setGuessCoords: (lat: number, lng: number) => void;
   submitGuess: () => Promise<void>;
   nextStage: () => void;
-  goToLeaderboard: () => void;
   playAgain: () => void;
 }
 
@@ -151,10 +150,6 @@ export function GameProvider({ children }: { children: ReactNode }) {
     }));
   }, []);
 
-  const goToLeaderboard = useCallback(() => {
-    setState((s) => ({ ...s, phase: "leaderboard" }));
-  }, []);
-
   const playAgain = useCallback(() => {
     setState({ ...INITIAL_STATE, username: state.username, phase: "welcome" });
   }, [state.username]);
@@ -167,7 +162,6 @@ export function GameProvider({ children }: { children: ReactNode }) {
         setGuessCoords,
         submitGuess,
         nextStage,
-        goToLeaderboard,
         playAgain,
       }}
     >

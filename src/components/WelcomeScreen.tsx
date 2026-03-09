@@ -1,12 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { Headphones, ArrowRight, Volume2, Music, MessageCircle } from "lucide-react";
+import { Headphones, ArrowRight, Volume2, Music, MessageCircle, Trophy } from "lucide-react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 interface WelcomeScreenProps {
   onStart: (username: string) => void;
 }
+
+const MotionLink = motion.create(Link);
 
 const containerVariants = {
   hidden: {},
@@ -86,6 +89,15 @@ export default function WelcomeScreen({ onStart }: WelcomeScreenProps) {
           >
             Start Game <ArrowRight size={16} />
           </motion.button>
+
+          <MotionLink
+            href="/leaderboard"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.97 }}
+            className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-white/10 hover:bg-white/20 border border-white/20 text-white font-medium transition mt-1"
+          >
+            <Trophy size={16} /> View Leaderboard
+          </MotionLink>
         </form>
       </motion.div>
     </motion.div>
