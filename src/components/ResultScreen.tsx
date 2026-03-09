@@ -14,16 +14,22 @@ const MotionLink = motion.create(Link);
 const GuessMap = dynamic(() => import("@/components/GuessMap"), { ssr: false });
 
 const DISTANCE_COMPARISONS = [
-  { km: 50, text: "you could walk there" },
-  { km: 150, text: "a short drive away" },
-  { km: 350, text: "roughly London to Paris" },           // 340 km
-  { km: 700, text: "roughly Berlin to Paris" },            // 880 km
-  { km: 1200, text: "roughly London to Berlin" },          // 930 km
-  { km: 2000, text: "roughly London to Rome" },            // 1,430 km
-  { km: 3000, text: "roughly London to Moscow" },          // 2,500 km
-  { km: 6000, text: "roughly New York to London" },        // 5,570 km
-  { km: 10000, text: "roughly London to Tokyo" },          // 9,560 km
-  { km: 15000, text: "nearly halfway around the world" },
+  { km: 5, text: "virtually the same neighborhood" },
+  { km: 25, text: "just a few towns over" },
+  { km: 50, text: "roughly a marathon distance" },           // 42.2 km
+  { km: 150, text: "roughly London to Birmingham" },         // 163 km
+  { km: 350, text: "roughly London to Paris" },              // 344 km
+  { km: 550, text: "roughly San Francisco to LA" },          // 559 km
+  { km: 800, text: "roughly Berlin to Paris" },              // 878 km
+  { km: 1200, text: "roughly New York to Chicago" },         // 1,146 km
+  { km: 2000, text: "roughly London to Athens" },            // 2,390 km
+  { km: 3000, text: "roughly Madrid to Moscow" },            // 3,400 km
+  { km: 4500, text: "roughly New York to Los Angeles" },     // 3,935 km
+  { km: 6000, text: "roughly London to New York" },          // 5,570 km
+  { km: 8000, text: "roughly London to Beijing" },           // 8,100 km
+  { km: 10000, text: "roughly London to Tokyo" },            // 9,560 km
+  { km: 15000, text: "roughly London to Perth" },            // 14,470 km
+  { km: 20000, text: "the literal other side of the world" } // Max possible (half-circumference)
 ];
 
 const SCORE_TIERS = [
