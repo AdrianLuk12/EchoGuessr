@@ -1,0 +1,11 @@
+{
+  "city": "Toronto",
+  "country": "Canada",
+  "lat": 43.65107,
+  "lng": -79.347015,
+  "ambientPrompt": "Hear the echoing call of gulls along the lakeshore, the rumble of streetcars on tracks, and the rustling of maple leaves in a breezy park.",
+  "musicPrompt": "Jovial and rhythmic sounds of fiddles and accordions, typical of Canadian folk music, creating a festive and lively atmosphere.",
+  "languagePhrase": "Pour se rendre au centre commercial en métro, vous devez prendre la ligne Yonge jusqu'à la station finale.",
+  "languageTranslation": "To get to the shopping mall by subway, you need to take the Yonge line to the final station.",
+  "voiceDescription": "Mature Canadian man with a noticeable Toronto accent."
+}

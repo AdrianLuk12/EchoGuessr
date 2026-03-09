@@ -1,0 +1,11 @@
+{
+  "city": "Austin",
+  "country": "United States",
+  "lat": 30.2672,
+  "lng": -97.7431,
+  "ambientPrompt": "The rumbling roar of a rodeo crowd, the tweeting sound of cicadas in hot summer air, and the rhythmic clapping of cowboy boots on wooden planks.",
+  "musicPrompt": "Twanging guitar strings and lively fiddle notes create a charming country and western atmosphere, with a hint of Southern rock.",
+  "languagePhrase": "Could y’all grab a cold sweet tea from the fridge, and we’ll head to the porch to watch the sunset?",
+  "languageTranslation": "Could you grab a cold sweet tea from the fridge, and we’ll head to the porch to watch the sunset?",
+  "voiceDescription": "Middle-aged Texan man with a noticeable thick cowboy southern accent."
+}

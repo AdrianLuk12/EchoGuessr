@@ -1,0 +1,11 @@
+{
+  "city": "Harbin",
+  "country": "China",
+  "lat": 45.8038,
+  "lng": 126.5347,
+  "ambientPrompt": "Hear the rhythmic tinkle of wind chimes from a nearby shop, the sharp crack of firecrackers, and the distant rumble of a passing train.",
+  "musicPrompt": "Listen to the haunting melody of the erhu, accompanied by the rhythmic beating of traditional Chinese drums, creating an ethereal atmosphere.",
+  "languagePhrase": "请问，您可以告诉我去哪里可以品尝到最正宗的东北菜吗？",
+  "languageTranslation": "Excuse me, could you tell me where I can taste the most authentic Northeastern Chinese cuisine?",
+  "voiceDescription": "Middle-aged Chinese man with a thick Harbin accent."
+}
