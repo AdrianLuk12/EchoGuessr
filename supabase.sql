@@ -34,3 +34,7 @@ CREATE POLICY "Allow public read access" ON public.user_profiles
 -- Allow service role to write
 CREATE POLICY "Allow service role write access" ON public.user_profiles
     FOR ALL USING (auth.role() = 'service_role');
+
+-- Indexes for leaderboard performance optimization
+CREATE INDEX IF NOT EXISTS idx_leaderboard_score_desc ON public.leaderboard (score DESC);
+CREATE INDEX IF NOT EXISTS idx_leaderboard_score_user ON public.leaderboard (score DESC, username);
