@@ -1,0 +1,11 @@
+{
+  "city": "Chefchaouen",
+  "country": "Morocco",
+  "lat": 35.1688,
+  "lng": -5.2697,
+  "ambientPrompt": "Hear the rhythmic drumming from a street market, the clinking of metal tea glasses, and the call to prayer echoing from a mosque.",
+  "musicPrompt": "Traditional Gnawa music featuring the guembri string instrument, accompanied by metal castanets, creating a soulful and rhythmic ambiance.",
+  "languagePhrase": "Pouvez-vous me dire comment aller à la boulangerie la plus proche? J'aimerais acheter du pain pour le dîner.",
+  "languageTranslation": "Can you tell me how to get to the nearest bakery? I'd like to buy some bread for dinner.",
+  "voiceDescription": "Middle-aged Moroccan man with a deep voice and a slight Arabic accent."
+}

@@ -1,0 +1,11 @@
+{
+  "city": "Taichung",
+  "country": "Taiwan",
+  "lat": 24.1537,
+  "lng": 120.6736,
+  "ambientPrompt": "The rhythmic thrumming of scooter engines weaving through traffic, distant sound of temple bells chiming, and the loud calls of street market vendors.",
+  "musicPrompt": "Traditional instruments like the guzheng and erhu blend with modern electronic beats, creating a lively, ambient fusion that is both dynamic and soothing.",
+  "languagePhrase": "這裡的夜市有很多種類的小吃，我特別推薦你試試炸雞排，它真的很好吃。",
+  "languageTranslation": "The night market here has many kinds of snacks, I especially recommend you try the fried chicken cutlet, it's really delicious.",
+  "voiceDescription": "Young Taiwanese woman with a soft and pleasant Mandarin accent."
+}

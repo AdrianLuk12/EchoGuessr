@@ -1,0 +1,11 @@
+{
+  "city": "Guanajuato",
+  "country": "Mexico",
+  "lat": 21.019,
+  "lng": -101.257,
+  "ambientPrompt": "The festive sounds of traditional mariachi trumpets, the clink of glasses in a lively cantina, and distant church bells ringing from a cathedral.",
+  "musicPrompt": "The rhythmic strumming of the vihuela and guitarrón, accompanied by proud violin melodies, create an energetic and spirited mariachi sound.",
+  "languagePhrase": "¿Podría recomendarme un buen lugar para probar tamales cerca de aquí? Quisiera algo local y auténtico.",
+  "languageTranslation": "Could you recommend a good place to try tamales nearby? I'd like something local and authentic.",
+  "voiceDescription": "Middle-aged Mexican man with a warm, inviting tone and a slight regional accent."
+}

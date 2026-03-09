@@ -1,0 +1,11 @@
+{
+  "city": "Kyoto",
+  "country": "Japan",
+  "lat": 35.0116,
+  "lng": 135.7681,
+  "ambientPrompt": "The rhythmic clacking of wooden sandals on cobblestone paths, gentle water flowing in a traditional garden, and the soft rustle of paper sliding doors.",
+  "musicPrompt": "The elegant sounds of the koto with its plucked strings, accompanied by the smooth melody of a shakuhachi flute, imbued with a serene and reflective mood.",
+  "languagePhrase": "この抹茶パフェをもう一つくださいお願いします。それとお箸もものいただけますか？",
+  "languageTranslation": "Can I have one more of this matcha parfait, please? Could I also have some chopsticks?",
+  "voiceDescription": "Middle-aged Japanese man with a calm and measured Kansai accent."
+}
