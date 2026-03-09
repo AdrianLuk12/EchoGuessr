@@ -73,6 +73,7 @@ And the APIs that power it:
 - [ElevenLabs](https://elevenlabs.io/) — sound effects, music, and TTS with dynamic voice generation
 - [Google Maps JavaScript API](https://developers.google.com/maps/documentation/javascript) — interactive map view
 - [react-globe.gl](https://github.com/vasturiano/react-globe.gl) — 3D globe view
+- [Supabase](https://supabase.com/) — PostgreSQL database for leaderboard persistence
 
 ## Keyboard Shortcuts
 
@@ -105,6 +106,8 @@ BACKBOARD_API_KEY=your_backboard_api_key
 BACKBOARD_API_URL=https://app.backboard.io/api
 ELEVENLABS_API_KEY=your_elevenlabs_api_key
 NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=your_google_maps_api_key
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
 ```
 
 ### Run

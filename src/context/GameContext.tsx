@@ -5,10 +5,11 @@ import {
   useContext,
   useState,
   useCallback,
+  useEffect,
   ReactNode,
 } from "react";
 
-type GamePhase = "welcome" | "loading" | "playing" | "result" | "leaderboard";
+type GamePhase = "welcome" | "loading" | "playing" | "result";
 
 interface AudioUrls {
   ambient: string;
@@ -24,11 +25,15 @@ interface ResultData {
   stage: number;
   languagePhrase?: string;
   languageTranslation?: string;
+  isNewHighScore?: boolean;
+  isNewUser?: boolean;
+  audio?: AudioUrls;
 }
 
 interface GameState {
   phase: GamePhase;
   username: string;
+  isAuthenticated: boolean;
   sessionId: string | null;
   stage: number; // 1, 2, or 3
   audio: AudioUrls | null;
@@ -36,6 +41,7 @@ interface GameState {
   result: ResultData | null;
   error: string | null;
   isLoading: boolean;
+  isInitializing: boolean;
 }
 
 interface GameContextType extends GameState {
@@ -43,8 +49,8 @@ interface GameContextType extends GameState {
   setGuessCoords: (lat: number, lng: number) => void;
   submitGuess: () => Promise<void>;
   nextStage: () => void;
-  goToLeaderboard: () => void;
   playAgain: () => void;
+  logout: () => Promise<void>;
 }
 
 const GameContext = createContext<GameContextType | null>(null);
@@ -58,6 +64,7 @@ export function useGame() {
 const INITIAL_STATE: GameState = {
   phase: "welcome",
   username: "",
+  isAuthenticated: false,
   sessionId: null,
   stage: 1,
   audio: null,
@@ -65,15 +72,41 @@ const INITIAL_STATE: GameState = {
   result: null,
   error: null,
   isLoading: false,
+  isInitializing: true,
 };
 
 export function GameProvider({ children }: { children: ReactNode }) {
   const [state, setState] = useState<GameState>(INITIAL_STATE);
 
+  useEffect(() => {
+    async function checkAuth() {
+      try {
+        const res = await fetch("/api/auth/me");
+        if (res.ok) {
+          const data = await res.json();
+          if (data.authenticated && data.user?.username) {
+            setState(s => ({ 
+              ...s, 
+              username: data.user.username, 
+              isAuthenticated: true,
+              isInitializing: false 
+            }));
+            return;
+          }
+        }
+      } catch (err) {
+        console.error("Auth check failed", err);
+      }
+      setState(s => ({ ...s, isInitializing: false }));
+    }
+    checkAuth();
+  }, []);
+
   const startGame = useCallback(async (username: string) => {
     setState((s) => ({
       ...s,
       username,
+      isAuthenticated: true,
       phase: "loading",
       isLoading: true,
       error: null,
@@ -119,6 +152,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           sessionId: state.sessionId,
+          username: state.username,
           guessedCoordinates: [state.guessCoords.lat, state.guessCoords.lng],
           stage: state.stage,
         }),
@@ -128,7 +162,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
 
       setState((s) => ({
         ...s,
-        result,
+        result: { ...result, audio: s.audio ?? undefined },
         phase: "result",
         isLoading: false,
       }));
@@ -139,7 +173,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
         isLoading: false,
       }));
     }
-  }, [state.sessionId, state.guessCoords, state.stage]);
+  }, [state.sessionId, state.guessCoords, state.stage, state.audio, state.username]);
 
   const nextStage = useCallback(() => {
     setState((s) => ({
@@ -148,13 +182,24 @@ export function GameProvider({ children }: { children: ReactNode }) {
     }));
   }, []);
 
-  const goToLeaderboard = useCallback(() => {
-    setState((s) => ({ ...s, phase: "leaderboard" }));
-  }, []);
-
   const playAgain = useCallback(() => {
-    setState({ ...INITIAL_STATE, username: state.username, phase: "welcome" });
-  }, [state.username]);
+    if (state.isAuthenticated && state.username) {
+      startGame(state.username);
+    } else {
+      setState({ 
+        ...INITIAL_STATE, 
+        username: state.username, 
+        isAuthenticated: state.isAuthenticated,
+        isInitializing: false,
+        phase: "welcome" 
+      });
+    }
+  }, [state.username, state.isAuthenticated, startGame]);
+
+  const logout = useCallback(async () => {
+    await fetch("/api/auth/logout", { method: "POST" });
+    setState({ ...INITIAL_STATE, isInitializing: false });
+  }, []);
 
   return (
     <GameContext.Provider
@@ -164,8 +209,8 @@ export function GameProvider({ children }: { children: ReactNode }) {
         setGuessCoords,
         submitGuess,
         nextStage,
-        goToLeaderboard,
         playAgain,
+        logout,
       }}
     >
       {children}

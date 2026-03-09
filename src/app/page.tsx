@@ -5,7 +5,6 @@ import WelcomeScreen from "@/components/WelcomeScreen";
 import LoadingScreen from "@/components/LoadingScreen";
 import GameScreen from "@/components/GameScreen";
 import ResultScreen from "@/components/ResultScreen";
-import LeaderboardScreen from "@/components/LeaderboardScreen";
 import { AnimatePresence, motion } from "framer-motion";
 
 function GameRouter() {
@@ -18,7 +17,7 @@ function GameRouter() {
           initial={{ opacity: 0, y: -8 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -8 }}
-          className="fixed top-4 left-1/2 -translate-x-1/2 bg-red-900/90 text-red-200 px-4 py-2 rounded-lg text-sm z-[9999]"
+          className="fixed top-4 left-1/2 -translate-x-1/2 bg-red-900/90 text-red-200 px-4 py-2 rounded-lg text-sm z-9999"
         >
           {error}
         </motion.div>
@@ -42,11 +41,6 @@ function GameRouter() {
         {phase === "result" && (
           <motion.div key="result" className="h-screen" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }}>
             <ResultScreen />
-          </motion.div>
-        )}
-        {phase === "leaderboard" && (
-          <motion.div key="leaderboard" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }}>
-            <LeaderboardScreen />
           </motion.div>
         )}
       </AnimatePresence>

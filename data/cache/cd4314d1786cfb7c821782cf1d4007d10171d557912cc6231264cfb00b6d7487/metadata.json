@@ -1,0 +1,11 @@
+{
+  "city": "Bergen",
+  "country": "Norway",
+  "lat": 60.39299,
+  "lng": 5.32415,
+  "ambientPrompt": "The rhythmic patter of rain on cobblestone streets, the distant echo of fjord waves against rocky shores, and the whistle of wind through pine forests.",
+  "musicPrompt": "Traditional folk tunes with the haunting tones of the Hardanger fiddle, accompanied by gentle strumming from an acoustic guitar, creating a serene mood.",
+  "languagePhrase": "Kan du anbefale et sted i nærheten hvor vi kan smake på tradisjonell norsk mat og fjordutsikt?",
+  "languageTranslation": "Can you recommend a nearby place where we can taste traditional Norwegian food and have a view of the fjord?",
+  "voiceDescription": "Middle-aged Norwegian man with a warm Bergen accent."
+}

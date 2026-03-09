@@ -1,0 +1,11 @@
+{
+  "city": "Mendoza",
+  "country": "Argentina",
+  "lat": -32.8908,
+  "lng": -68.8272,
+  "ambientPrompt": "The whirring sound of passing bicycles, the gentle hum of wine-producing machines, and the rustling of dry, wind-blown leaves underfoot.",
+  "musicPrompt": "Listen to the sounds of tango, featuring the accordion's melodic voice, passionate guitar strums, and rhythmic clapping. The mood is lively and enchanting.",
+  "languagePhrase": "¿Podrías recomendarme una bodega cercana donde pueda probar algunos vinos locales y disfrutar del paisaje?",
+  "languageTranslation": "Could you recommend a nearby winery where I can try some local wines and enjoy the scenery?",
+  "voiceDescription": "Mature Argentine man with a rich, deep accent typical of the Cuyo region."
+}

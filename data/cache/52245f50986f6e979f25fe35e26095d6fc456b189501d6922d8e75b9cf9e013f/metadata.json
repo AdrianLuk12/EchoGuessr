@@ -1,0 +1,11 @@
+{
+  "city": "Bishkek",
+  "country": "Kyrgyzstan",
+  "lat": 42.8746,
+  "lng": 74.5698,
+  "ambientPrompt": "The constant flow and sudden honks of bustling traffic, the rhythmic movement of a train passing by, and the sound of birds chirping in urban parks.",
+  "musicPrompt": "Traditional komuz strumming with light dombra accompaniment, offering a rhythmic and melodic harmonization, often found in folk and nomadic music.",
+  "languagePhrase": "Бүгүн базарга барып, жаңы мөмө-жемиштерди алып келем, анан кечинде салат жасайм.",
+  "languageTranslation": "Today I am going to the bazaar to buy fresh fruits and then I'll make a salad in the evening.",
+  "voiceDescription": "Middle-aged Kyrgyz man with a soft Central Asian accent."
+}

@@ -1,0 +1,11 @@
+{
+  "city": "Lisbon",
+  "country": "Portugal",
+  "lat": 38.7223,
+  "lng": -9.1393,
+  "ambientPrompt": "Hear the clatter of trams navigating cobblestone streets, the distant sound of seagulls over the ocean, and the faint rustling of palm trees in the breeze.",
+  "musicPrompt": "Listen to the melancholic guitar strings of fado music, featuring the Portuguese guitar, adding a soulful and expressive vibe.",
+  "languagePhrase": "Eu gostaria de saber aonde posso encontrar uma farmácia aberta por aqui à noite.",
+  "languageTranslation": "I would like to know where I can find an open pharmacy around here at night.",
+  "voiceDescription": "Middle-aged Portuguese man with a warm Lisbon accent."
+}

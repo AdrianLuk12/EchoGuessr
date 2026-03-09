@@ -1,0 +1,11 @@
+{
+  "city": "Santiago de los Caballeros",
+  "country": "Dominican Republic",
+  "lat": 19.4517,
+  "lng": -70.697,
+  "ambientPrompt": "Hear the rhythmic beat of conga drums, the cooing of palm tree fronds in the wind, and occasional crowing of roosters.",
+  "musicPrompt": "Experience the sounds of merengue with lively accordion, tambora, and güira creating an upbeat, festive atmosphere.",
+  "languagePhrase": "Para llegar al mercado, siga recto y gire a la derecha en el tercer semáforo.",
+  "languageTranslation": "To get to the market, go straight and turn right at the third traffic light.",
+  "voiceDescription": "Middle-aged Dominican man with a warm, melodic Spanish accent."
+}

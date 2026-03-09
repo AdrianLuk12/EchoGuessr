@@ -1,0 +1,11 @@
+{
+  "city": "Hong Kong",
+  "country": "China",
+  "lat": 22.3193,
+  "lng": 114.1694,
+  "ambientPrompt": "The rhythmic clatter of mahjong tiles, the hum of trams, and the distinctive bell of the Star Ferry signal the location.",
+  "musicPrompt": "The sounds of the erhu and guzheng create a traditional melody, infused with a modern Cantopop style and lively energy.",
+  "languagePhrase": "呢間茶餐廳好出名，佢哋嘅菠蘿包好好味，你想唔想試吓？",
+  "languageTranslation": "This cafe is famous; their pineapple buns are very tasty. Would you like to try one?",
+  "voiceDescription": "Ensure a noticeable thick accent, in Cantonese, with a middle-aged woman's friendly tone."
+}

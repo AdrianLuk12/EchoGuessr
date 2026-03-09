@@ -2,24 +2,34 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useGame } from "@/context/GameContext";
-import { MapPin, Trophy, RotateCcw } from "lucide-react";
+import { MapPin, Trophy, RotateCcw, PartyPopper, Volume2, Music, MessageCircle } from "lucide-react";
 import dynamic from "next/dynamic";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import confetti from "canvas-confetti";
+import Link from "next/link";
+import AudioPlayer from "@/components/AudioPlayer";
+
+const MotionLink = motion.create(Link);
 
 const GuessMap = dynamic(() => import("@/components/GuessMap"), { ssr: false });
 
 const DISTANCE_COMPARISONS = [
-  { km: 50, text: "you could walk there" },
-  { km: 150, text: "a short drive away" },
-  { km: 350, text: "roughly London to Paris" },           // 340 km
-  { km: 700, text: "roughly Berlin to Paris" },            // 880 km
-  { km: 1200, text: "roughly London to Berlin" },          // 930 km
-  { km: 2000, text: "roughly London to Rome" },            // 1,430 km
-  { km: 3000, text: "roughly London to Moscow" },          // 2,500 km
-  { km: 6000, text: "roughly New York to London" },        // 5,570 km
-  { km: 10000, text: "roughly London to Tokyo" },          // 9,560 km
-  { km: 15000, text: "nearly halfway around the world" },
+  { km: 5, text: "virtually the same neighborhood" },
+  { km: 25, text: "just a few towns over" },
+  { km: 50, text: "roughly a marathon distance" },           // 42.2 km
+  { km: 150, text: "roughly London to Birmingham" },         // 163 km
+  { km: 350, text: "roughly London to Paris" },              // 344 km
+  { km: 550, text: "roughly San Francisco to LA" },          // 559 km
+  { km: 800, text: "roughly Berlin to Paris" },              // 878 km
+  { km: 1200, text: "roughly New York to Chicago" },         // 1,146 km
+  { km: 2000, text: "roughly London to Athens" },            // 2,390 km
+  { km: 3000, text: "roughly Madrid to Moscow" },            // 3,400 km
+  { km: 4500, text: "roughly New York to Los Angeles" },     // 3,935 km
+  { km: 6000, text: "roughly London to New York" },          // 5,570 km
+  { km: 8000, text: "roughly London to Beijing" },           // 8,100 km
+  { km: 10000, text: "roughly London to Tokyo" },            // 9,560 km
+  { km: 15000, text: "roughly London to Perth" },            // 14,470 km
+  { km: 20000, text: "the literal other side of the world" } // Max possible (half-circumference)
 ];
 
 const SCORE_TIERS = [
@@ -73,13 +83,17 @@ function AnimatedScore({ value }: { value: number }) {
 }
 
 export default function ResultScreen() {
-  const { result, goToLeaderboard, playAgain, username, sessionId } = useGame();
-  if (!result) return null;
+  const { result, playAgain } = useGame();
+  
+  const [showNotification, setShowNotification] = useState(true);
 
-  const { score, distance, actualLocation, guessedLocation, stage } = result;
+  const score = result?.score ?? 0;
+  const isNewHighScore = result?.isNewHighScore ?? false;
+  const isNewUser = result?.isNewUser ?? false;
 
   useEffect(() => {
-    if (score >= 3000) {
+    if (!result) return;
+    if (score >= 3000 || isNewHighScore) {
       const duration = score >= 8000 ? 3000 : 1500;
       const end = Date.now() + duration;
       const frame = () => {
@@ -89,7 +103,21 @@ export default function ResultScreen() {
       };
       frame();
     }
-  }, [score]);
+  }, [result, score, isNewHighScore]);
+
+  useEffect(() => {
+    if (!result) return;
+    if (isNewHighScore || isNewUser) {
+      const timer = setTimeout(() => setShowNotification(false), 5000);
+      return () => clearTimeout(timer);
+    } else {
+      setShowNotification(false);
+    }
+  }, [result, isNewHighScore, isNewUser]);
+
+  if (!result) return null;
+
+  const { distance, actualLocation, guessedLocation, stage } = result;
 
   return (
     <div className="flex flex-col lg:flex-row h-screen">
@@ -104,8 +132,22 @@ export default function ResultScreen() {
           <MapPin className="text-amber-500" size={24} /> Results
         </h2>
 
-        <div className="bg-white/5 rounded-xl p-5 space-y-3">
-          <div className="text-center">
+        <div className="bg-white/5 rounded-xl p-5 space-y-3 relative">
+          <AnimatePresence>
+            {showNotification && (isNewHighScore || isNewUser) && (
+              <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                className="absolute -top-3 left-1/2 -translate-x-1/2 bg-emerald-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg flex items-center gap-1 whitespace-nowrap"
+              >
+                <PartyPopper size={14} />
+                {isNewUser ? "Score Submitted!" : "New High Score!"}
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          <div className="text-center mt-2">
             <motion.p
               className="text-5xl font-extrabold text-amber-500"
               initial={{ scale: 0.6, opacity: 0 }}
@@ -166,16 +208,46 @@ export default function ResultScreen() {
           </motion.div>
         </div>
 
+        {/* Audio Clues Section */}
+        {result.audio && (
+          <motion.div
+            className="bg-white/5 rounded-xl p-5 space-y-3"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5, duration: 0.4 }}
+          >
+            <h3 className="text-lg font-semibold flex items-center gap-2">
+              <Volume2 className="text-amber-500" size={18} /> Audio Clues
+            </h3>
+            <div className="flex flex-col gap-3">
+              <AudioPlayer
+                src={result.audio.ambient}
+                label="Ambient Sounds"
+                icon={Volume2}
+              />
+              <AudioPlayer
+                src={result.audio.music}
+                label="Regional Music"
+                icon={Music}
+              />
+              <AudioPlayer
+                src={result.audio.language}
+                label="Spoken Language"
+                icon={MessageCircle}
+              />
+            </div>
+          </motion.div>
+        )}
+
         <div className="flex flex-col gap-2 mt-auto">
-          <SaveScoreButton username={username} score={score} sessionId={sessionId} />
-          <motion.button
+          <MotionLink
+            href="/leaderboard"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.97 }}
-            onClick={goToLeaderboard}
             className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-white/10 hover:bg-white/20 border border-white/20 text-white font-medium transition"
           >
             <Trophy size={16} /> View Leaderboard
-          </motion.button>
+          </MotionLink>
           <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.97 }}
@@ -202,42 +274,5 @@ export default function ResultScreen() {
         />
       </motion.div>
     </div>
-  );
-}
-
-function SaveScoreButton({
-  username,
-  score,
-  sessionId,
-}: {
-  username: string;
-  score: number;
-  sessionId: string | null;
-}) {
-  const [saved, setSaved] = useState(false);
-  const [saving, setSaving] = useState(false);
-
-  const handleSave = async () => {
-    if (saved || saving) return;
-    setSaving(true);
-    await fetch("/api/leaderboard", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, score, sessionId }),
-    });
-    setSaving(false);
-    setSaved(true);
-  };
-
-  return (
-    <motion.button
-      whileHover={{ scale: 1.02 }}
-      whileTap={{ scale: 0.97 }}
-      onClick={handleSave}
-      disabled={saved || saving}
-      className="px-4 py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-medium transition disabled:opacity-50 disabled:cursor-not-allowed"
-    >
-      {saved ? "Score Saved!" : saving ? "Saving…" : "Save Score to Leaderboard"}
-    </motion.button>
   );
 }

@@ -1,15 +1,17 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useGame } from "@/context/GameContext";
 import { Trophy, RotateCcw } from "lucide-react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 interface Entry {
   username: string;
   score: number;
   date: string;
 }
+
+const MotionLink = motion.create(Link);
 
 const containerVariants = {
   hidden: {},
@@ -22,16 +24,25 @@ const rowVariants = {
 };
 
 export default function LeaderboardScreen() {
-  const { playAgain } = useGame();
   const [entries, setEntries] = useState<Entry[]>([]);
   const [loading, setLoading] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
+    // Fetch leaderboard
     fetch("/api/leaderboard")
       .then((r) => r.json())
       .then((data) => setEntries(data))
       .catch(() => {})
       .finally(() => setLoading(false));
+      
+    // Fetch auth status
+    fetch("/api/auth/me")
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.authenticated) setIsLoggedIn(true);
+      })
+      .catch(() => {});
   }, []);
 
   return (
@@ -103,14 +114,28 @@ export default function LeaderboardScreen() {
           </motion.div>
         )}
 
-        <motion.button
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.97 }}
-          onClick={playAgain}
-          className="mt-8 flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-black font-semibold transition"
-        >
-          <RotateCcw size={16} /> Play Again
-        </motion.button>
+        <div className="mt-8 flex flex-col sm:flex-row gap-3">
+          <MotionLink
+            href="/"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.97 }}
+            className={`flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-lg ${isLoggedIn ? "bg-white/10 hover:bg-white/20 border border-white/20 text-white" : "bg-amber-500 hover:bg-amber-400 text-black"} font-semibold transition`}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+            Go back to home page
+          </MotionLink>
+          
+          {isLoggedIn && (
+            <MotionLink
+              href="/?play=true"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.97 }}
+              className="flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-black font-semibold transition"
+            >
+              <RotateCcw size={16} /> Play Game
+            </MotionLink>
+          )}
+        </div>
       </div>
     </motion.div>
   );

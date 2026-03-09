@@ -1,0 +1,11 @@
+{
+  "city": "Marrakech",
+  "country": "Morocco",
+  "lat": 31.634,
+  "lng": -7.999,
+  "ambientPrompt": "Hear the rhythmic beat of traditional drums mixing with the clatter of horse-drawn carriages on cobblestone, and the distant chiming of metalwork from artisan shops.",
+  "musicPrompt": "Experience the vibrant sound of the oud and frame drum creating traditional rhythms, mingled with lively Berber influences, evoking a sense of celebration.",
+  "languagePhrase": "Lorsque vous traversez le souk, attention aux vélos et aux charrettes transportant des marchandises à toute vitesse.",
+  "languageTranslation": "When you walk through the souk, watch out for bicycles and carts quickly transporting goods.",
+  "voiceDescription": "Middle-aged Moroccan man with a warm, slightly raspy Marrakchi accent."
+}
