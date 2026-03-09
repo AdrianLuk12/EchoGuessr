@@ -118,7 +118,7 @@ export default function GameScreen() {
                   initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.35, ease: "easeOut" }}
-                  className={`rounded-lg transition ${
+                  className={`rounded-xl overflow-hidden transition ${
                     isCurrent
                       ? "ring-1 ring-amber-500/50"
                       : "opacity-75 hover:opacity-100"

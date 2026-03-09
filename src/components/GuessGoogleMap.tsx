@@ -1,10 +1,74 @@
 "use client";
 
 import { useState, useCallback, useEffect, useRef } from "react";
-import { APIProvider, Map, AdvancedMarker, useMap } from "@vis.gl/react-google-maps";
+import {
+  APIProvider,
+  Map,
+  AdvancedMarker,
+  useMap,
+} from "@vis.gl/react-google-maps";
 import type { GuessMapProps } from "./GuessGlobe";
 
 const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "";
+const MARKER_SIZE = 18;
+
+function GuessMarker({
+  position,
+  color,
+  label,
+}: {
+  position: { lat: number; lng: number };
+  color: string;
+  label?: string;
+}) {
+  return (
+    <AdvancedMarker
+      position={position}
+      anchorLeft="-50%"
+      anchorTop="-50%"
+    >
+      <div
+        style={{
+          position: "relative",
+          width: MARKER_SIZE,
+          height: MARKER_SIZE,
+        }}
+      >
+        {label && (
+          <div
+            style={{
+              position: "absolute",
+              left: "50%",
+              bottom: "calc(100% + 4px)",
+              transform: "translateX(-50%)",
+              background: color,
+              color: "white",
+              fontSize: 11,
+              fontWeight: 600,
+              padding: "2px 8px",
+              borderRadius: 4,
+              lineHeight: 1.2,
+              whiteSpace: "nowrap",
+            }}
+          >
+            {label}
+          </div>
+        )}
+        <div
+          style={{
+            width: MARKER_SIZE,
+            height: MARKER_SIZE,
+            borderRadius: "50%",
+            background: color,
+            border: "3px solid white",
+            boxSizing: "border-box",
+            boxShadow: "0 0 0 1px rgba(0,0,0,0.15), 0 2px 4px rgba(0,0,0,0.3)",
+          }}
+        />
+      </div>
+    </AdvancedMarker>
+  );
+}
 
 function ResultLine({
   from,
@@ -22,7 +86,7 @@ function ResultLine({
     polyRef.current = new google.maps.Polyline({
       path: [from, to],
       strokeColor: "#facc15",
-      strokeWeight: 2,
+      strokeWeight: 6,
       strokeOpacity: 0.9,
       geodesic: true,
       map,
@@ -31,7 +95,7 @@ function ResultLine({
     const bounds = new google.maps.LatLngBounds();
     bounds.extend(from);
     bounds.extend(to);
-    map.fitBounds(bounds, 60);
+    map.fitBounds(bounds, { top: 50, bottom: 50, left: 50, right: 50 });
 
     return () => {
       polyRef.current?.setMap(null);
@@ -112,45 +176,19 @@ export default function GuessGoogleMap({
           />
 
           {markerPos && (
-            <AdvancedMarker position={markerPos}>
-              <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                {guessedLocation && (
-                  <div style={{ background: "#f97316", color: "white", fontSize: 11, fontWeight: 600, padding: "2px 8px", borderRadius: 4, marginBottom: 4, whiteSpace: "nowrap" }}>
-                    Your Guess
-                  </div>
-                )}
-                <div
-                  style={{
-                    width: 16,
-                    height: 16,
-                    borderRadius: "50%",
-                    background: "#f97316",
-                    border: "3px solid white",
-                    boxShadow: "0 0 0 1px rgba(0,0,0,0.15), 0 2px 4px rgba(0,0,0,0.3)",
-                  }}
-                />
-              </div>
-            </AdvancedMarker>
+            <GuessMarker
+              position={markerPos}
+              color="#f97316"
+              label={guessedLocation ? "Your Guess" : undefined}
+            />
           )}
 
           {actualLocation && (
-            <AdvancedMarker position={actualLocation}>
-              <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                <div style={{ background: "#22c55e", color: "white", fontSize: 11, fontWeight: 600, padding: "2px 8px", borderRadius: 4, marginBottom: 4, whiteSpace: "nowrap" }}>
-                  Actual
-                </div>
-                <div
-                  style={{
-                    width: 16,
-                    height: 16,
-                    borderRadius: "50%",
-                    background: "#22c55e",
-                    border: "3px solid white",
-                    boxShadow: "0 0 0 1px rgba(0,0,0,0.15), 0 2px 4px rgba(0,0,0,0.3)",
-                  }}
-                />
-              </div>
-            </AdvancedMarker>
+            <GuessMarker
+              position={actualLocation}
+              color="#22c55e"
+              label="Actual"
+            />
           )}
 
           {actualLocation && guessedLocation && (
